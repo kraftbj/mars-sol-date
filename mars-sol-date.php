@@ -7,6 +7,7 @@
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       mars-sol-date
+ *
  * @package MarsSolDate
  */
 
@@ -26,36 +27,41 @@ function mars_sol_date_get_first_post_time() {
 		return (int) $cached;
 	}
 	// All public types except attachment.
-	$post_types = get_post_types( [
-		'public' => true,
-	], 'names' );
+	$post_types = get_post_types(
+		array(
+			'public' => true,
+		),
+		'names'
+	);
 	if ( isset( $post_types['attachment'] ) ) {
 		unset( $post_types['attachment'] );
 	}
-	$args = [
+	$args         = array(
 		'posts_per_page' => 1,
 		'orderby'        => 'date',
 		'order'          => 'ASC',
 		'post_status'    => 'publish',
 		'post_type'      => array_values( $post_types ),
 		'fields'         => 'ids',
-	];
+	);
 	$oldest_posts = get_posts( $args );
 	// Fallback: only 'post' type if none found.
 	if ( empty( $oldest_posts ) ) {
-		$oldest_posts = get_posts([
-			'posts_per_page' => 1,
-			'orderby'        => 'date',
-			'order'          => 'ASC',
-			'post_status'    => 'publish',
-			'post_type'      => 'post',
-			'fields'         => 'ids',
-		]);
+		$oldest_posts = get_posts(
+			array(
+				'posts_per_page' => 1,
+				'orderby'        => 'date',
+				'order'          => 'ASC',
+				'post_status'    => 'publish',
+				'post_type'      => 'post',
+				'fields'         => 'ids',
+			)
+		);
 	}
 	if ( empty( $oldest_posts ) ) {
 		return false;
 	}
-	$first_post = get_post( $oldest_posts[0] );
+	$first_post      = get_post( $oldest_posts[0] );
 	$first_post_time = $first_post ? get_post_time( 'U', false, $first_post ) : false;
 	if ( $first_post_time ) {
 		update_option( 'mars_sol_date_first_post_time', $first_post_time, false );
@@ -68,17 +74,16 @@ function mars_sol_date_get_first_post_time() {
  *
  * @param int     $post_id The post ID.
  * @param WP_Post $post    The post object.
- * @param bool    $update  Whether this is an update.
  */
-function mars_sol_date_reset_cache_on_post_change( $post_id, $post, $update ) {
+function mars_sol_date_reset_cache_on_post_change( $post_id, $post ) {
 	if (
 		wp_is_post_revision( $post_id ) ||
-		! in_array( $post->post_status, [ 'publish', 'future' ], true )
+		! in_array( $post->post_status, array( 'publish', 'future' ), true )
 	) {
 		return;
 	}
 	$first_post_time = mars_sol_date_get_first_post_time();
-	$this_post_time = get_post_time( 'U', false, $post );
+	$this_post_time  = get_post_time( 'U', false, $post );
 	if ( ! $first_post_time || ( $this_post_time && $this_post_time < $first_post_time ) ) {
 		delete_option( 'mars_sol_date_first_post_time' );
 		mars_sol_date_get_first_post_time();
@@ -88,10 +93,14 @@ function mars_sol_date_reset_cache_on_post_change( $post_id, $post, $update ) {
 /**
  * Hooks: Reset earliest post time cache if needed.
  */
-add_action( 'save_post', 'mars_sol_date_reset_cache_on_post_change', 10, 3 );
-add_action( 'wp_insert_post', 'mars_sol_date_reset_cache_on_post_change', 10, 3 );
+add_action( 'save_post', 'mars_sol_date_reset_cache_on_post_change', 10, 2 );
+add_action( 'wp_insert_post', 'mars_sol_date_reset_cache_on_post_change', 10, 2 );
 
-// The render callback is now handled via block.json's "render" property (do not specify here).
+/**
+ * Registers the block.
+ *
+ * @return void
+ */
 function mars_sol_date_block_init() {
 	register_block_type( __DIR__ . '/build/' );
 }
