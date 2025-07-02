@@ -66,7 +66,7 @@ export default function Edit( { attributes, setAttributes, context } ) {
 	} else if ( numberFormat === 'number' ) {
 		label = solNumber > 0 ? solNumber : '';
 	}
-	label = __( label, 'mars-sol-date-block-wp' );
+	label = __( label, 'mars-sol-date' );
 	
 	let display = label;
 	if ( linkTo === 'post' && post && post.link ) {
@@ -79,7 +79,7 @@ export default function Edit( { attributes, setAttributes, context } ) {
 				<ToolbarGroup>
 					<ToolbarButton
 						icon="admin-links"
-						label={ __( 'Link to post', 'mars-sol-date-block-wp' ) }
+						label={ __( 'Link to post', 'mars-sol-date' ) }
 						isActive={ linkTo === 'post' }
 						onClick={ () => setAttributes( { linkTo: linkTo === 'post' ? 'none' : 'post' } ) }
 					/>
@@ -90,40 +90,40 @@ export default function Edit( { attributes, setAttributes, context } ) {
 				/>
 			</BlockControls>
 			<InspectorControls>
-				<PanelBody title={ __( 'Mars Sol Date Settings', 'mars-sol-date-block-wp' ) }>
+				<PanelBody title={ __( 'Mars Sol Date Settings', 'mars-sol-date' ) }>
 					<SelectControl
-						label={ __( 'Date Source', 'mars-sol-date-block-wp' ) }
+						label={ __( 'Date Source', 'mars-sol-date' ) }
 						value={ dateSource }
 						options={ [
-							{ label: __( 'Published Date', 'mars-sol-date-block-wp' ), value: 'publish' },
-							{ label: __( 'Last Modified', 'mars-sol-date-block-wp' ), value: 'modified' },
-							{ label: __( 'Custom Field', 'mars-sol-date-block-wp' ), value: 'custom' }
+							{ label: __( 'Published Date', 'mars-sol-date' ), value: 'publish' },
+							{ label: __( 'Last Modified', 'mars-sol-date' ), value: 'modified' },
+							{ label: __( 'Custom Field', 'mars-sol-date' ), value: 'custom' }
 						] }
 						onChange={ ( value ) => setAttributes( { dateSource: value } ) }
 					/>
 					{ dateSource === 'custom' && (
 						<TextControl
-							label={ __( 'Custom Field Name', 'mars-sol-date-block-wp' ) }
+							label={ __( 'Custom Field Name', 'mars-sol-date' ) }
 							value={ customField }
 							onChange={ ( value ) => setAttributes( { customField: value } ) }
 						/>
 					) }
 					<ToggleControl
-						label={ __( 'Show Prefix', 'mars-sol-date-block-wp' ) }
+						label={ __( 'Show Prefix', 'mars-sol-date' ) }
 						checked={ showPrefix }
 						onChange={ () => setAttributes( { showPrefix: ! showPrefix } ) }
 					/>
 					<TextControl
-						label={ __( 'Sol Label', 'mars-sol-date-block-wp' ) }
+						label={ __( 'Sol Label', 'mars-sol-date' ) }
 						value={ solLabel }
 						onChange={ ( value ) => setAttributes( { solLabel: value } ) }
 					/>
 					<SelectControl
-						label={ __( 'Sol Number Format', 'mars-sol-date-block-wp' ) }
+						label={ __( 'Sol Number Format', 'mars-sol-date' ) }
 						value={ numberFormat }
 						options={ [
-							{ label: __( 'Label + Number (e.g. Sol 51)', 'mars-sol-date-block-wp' ), value: 'label-number' },
-							{ label: __( 'Number Only (e.g. 51)', 'mars-sol-date-block-wp' ), value: 'number' }
+							{ label: __( 'Label + Number (e.g. Sol 51)', 'mars-sol-date' ), value: 'label-number' },
+							{ label: __( 'Number Only (e.g. 51)', 'mars-sol-date' ), value: 'number' }
 						] }
 						onChange={ ( value ) => setAttributes( { numberFormat: value } ) }
 					/>

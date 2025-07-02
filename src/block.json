@@ -1,7 +1,7 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "kraftbj/mars-sol-date",
+	"name": "mars-sol-date/date",
 	"version": "0.1.0",
 	"title": "Mars Sol Date",
 	"category": "widgets",

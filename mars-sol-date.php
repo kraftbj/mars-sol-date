@@ -8,7 +8,7 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       mars-sol-date
  *
- * @package MarsSolDate
+ * @package mars-sol-date
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -103,5 +103,6 @@ add_action( 'wp_insert_post', 'mars_sol_date_reset_cache_on_post_change', 10, 2 
  */
 function mars_sol_date_block_init() {
 	register_block_type( __DIR__ . '/build/' );
+	wp_set_script_translations( 'mars-sol-date-date-editor-script', 'mars-sol-date' );
 }
 add_action( 'init', 'mars_sol_date_block_init' );
