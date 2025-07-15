@@ -1,12 +1,17 @@
 import { __ } from '@wordpress/i18n';
-import { useBlockProps, InspectorControls, BlockControls, AlignmentControl } from '@wordpress/block-editor';
+import {
+	useBlockProps,
+	InspectorControls,
+	BlockControls,
+	AlignmentControl,
+} from '@wordpress/block-editor';
 import {
 	ToolbarGroup,
 	ToolbarButton,
 	SelectControl,
 	ToggleControl,
 	TextControl,
-	PanelBody
+	PanelBody,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import './editor.scss';
@@ -14,25 +19,36 @@ import './editor.scss';
 export default function Edit( { attributes, setAttributes, context } ) {
 	const {
 		dateSource = 'publish',
-		displayRelative = false,
 		showPrefix = true,
 		linkTo = 'none',
 		customField = '',
 		solLabel = 'Sol',
 		numberFormat = 'label-number',
-		align
+		align,
 	} = attributes;
 	const postId = context.postId;
 	const postType = context.postType;
 	const post = useSelect(
-		( select ) => postId ? select( 'core' ).getEntityRecord( 'postType', postType, postId ) : null,
+		( select ) =>
+			postId
+				? select( 'core' ).getEntityRecord(
+						'postType',
+						postType,
+						postId
+				  )
+				: null,
 		[ postId, postType ]
 	);
 	const getDate = () => {
 		if ( post ) {
 			if ( dateSource === 'modified' && post.modified ) {
 				return post.modified;
-			} else if ( dateSource === 'custom' && customField && post.meta && post.meta[ customField ] ) {
+			} else if (
+				dateSource === 'custom' &&
+				customField &&
+				post.meta &&
+				post.meta[ customField ]
+			) {
 				return post.meta[ customField ];
 			} else if ( post.date ) {
 				return post.date;
@@ -42,9 +58,13 @@ export default function Edit( { attributes, setAttributes, context } ) {
 	};
 
 	function getSolNumber( dateStr ) {
-		if ( ! dateStr ) return '';
+		if ( ! dateStr ) {
+			return '';
+		}
 		const postTimestamp = new Date( dateStr ).getTime() / 1000;
-		let firstPostTime = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'date' );
+		let firstPostTime = wp.data
+			.select( 'core/editor' )
+			.getEditedPostAttribute( 'date' );
 		if ( ! firstPostTime && post ) {
 			firstPostTime = post.date;
 		}
@@ -60,14 +80,16 @@ export default function Edit( { attributes, setAttributes, context } ) {
 	const solNumber = getSolNumber( date );
 	let label = '';
 	if ( numberFormat === 'label-number' ) {
-		label = `${ showPrefix ? solLabel : '' } ${ solNumber > 0 ? solNumber : '' }`.trim();
+		label = `${ showPrefix ? solLabel : '' } ${
+			solNumber > 0 ? solNumber : ''
+		}`.trim();
 	} else if ( numberFormat === 'label' ) {
 		label = `${ showPrefix ? solLabel : '' }`.trim();
 	} else if ( numberFormat === 'number' ) {
 		label = solNumber > 0 ? solNumber : '';
 	}
 	label = __( label, 'mars-sol-date' );
-	
+
 	let display = label;
 	if ( linkTo === 'post' && post && post.link ) {
 		display = <a href={ post.link }>{ label }</a>;
@@ -81,7 +103,11 @@ export default function Edit( { attributes, setAttributes, context } ) {
 						icon="admin-links"
 						label={ __( 'Link to post', 'mars-sol-date' ) }
 						isActive={ linkTo === 'post' }
-						onClick={ () => setAttributes( { linkTo: linkTo === 'post' ? 'none' : 'post' } ) }
+						onClick={ () =>
+							setAttributes( {
+								linkTo: linkTo === 'post' ? 'none' : 'post',
+							} )
+						}
 					/>
 				</ToolbarGroup>
 				<AlignmentControl
@@ -90,46 +116,81 @@ export default function Edit( { attributes, setAttributes, context } ) {
 				/>
 			</BlockControls>
 			<InspectorControls>
-				<PanelBody title={ __( 'Mars Sol Date Settings', 'mars-sol-date' ) }>
+				<PanelBody
+					title={ __( 'Mars Sol Date Settings', 'mars-sol-date' ) }
+				>
 					<SelectControl
 						label={ __( 'Date Source', 'mars-sol-date' ) }
 						value={ dateSource }
 						options={ [
-							{ label: __( 'Published Date', 'mars-sol-date' ), value: 'publish' },
-							{ label: __( 'Last Modified', 'mars-sol-date' ), value: 'modified' },
-							{ label: __( 'Custom Field', 'mars-sol-date' ), value: 'custom' }
+							{
+								label: __( 'Published Date', 'mars-sol-date' ),
+								value: 'publish',
+							},
+							{
+								label: __( 'Last Modified', 'mars-sol-date' ),
+								value: 'modified',
+							},
+							{
+								label: __( 'Custom Field', 'mars-sol-date' ),
+								value: 'custom',
+							},
 						] }
-						onChange={ ( value ) => setAttributes( { dateSource: value } ) }
+						onChange={ ( value ) =>
+							setAttributes( { dateSource: value } )
+						}
 					/>
 					{ dateSource === 'custom' && (
 						<TextControl
 							label={ __( 'Custom Field Name', 'mars-sol-date' ) }
 							value={ customField }
-							onChange={ ( value ) => setAttributes( { customField: value } ) }
+							onChange={ ( value ) =>
+								setAttributes( { customField: value } )
+							}
 						/>
 					) }
 					<ToggleControl
 						label={ __( 'Show Prefix', 'mars-sol-date' ) }
 						checked={ showPrefix }
-						onChange={ () => setAttributes( { showPrefix: ! showPrefix } ) }
+						onChange={ () =>
+							setAttributes( { showPrefix: ! showPrefix } )
+						}
 					/>
 					<TextControl
 						label={ __( 'Sol Label', 'mars-sol-date' ) }
 						value={ solLabel }
-						onChange={ ( value ) => setAttributes( { solLabel: value } ) }
+						onChange={ ( value ) =>
+							setAttributes( { solLabel: value } )
+						}
 					/>
 					<SelectControl
 						label={ __( 'Sol Number Format', 'mars-sol-date' ) }
 						value={ numberFormat }
 						options={ [
-							{ label: __( 'Label + Number (e.g. Sol 51)', 'mars-sol-date' ), value: 'label-number' },
-							{ label: __( 'Number Only (e.g. 51)', 'mars-sol-date' ), value: 'number' }
+							{
+								label: __(
+									'Label + Number (e.g. Sol 51)',
+									'mars-sol-date'
+								),
+								value: 'label-number',
+							},
+							{
+								label: __(
+									'Number Only (e.g. 51)',
+									'mars-sol-date'
+								),
+								value: 'number',
+							},
 						] }
-						onChange={ ( value ) => setAttributes( { numberFormat: value } ) }
+						onChange={ ( value ) =>
+							setAttributes( { numberFormat: value } )
+						}
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<span { ...useBlockProps( { style: { textAlign: align } } ) } >{ display }</span>
+			<span { ...useBlockProps( { style: { textAlign: align } } ) }>
+				{ display }
+			</span>
 		</>
 	);
 }

@@ -1,9 +1,11 @@
 /**
- * Minimal inline styling to resemble core/post-date; supports are now on, so user styles override.
+ * Minimal inline styling to resemble core/post-date;
+ * supports are now on, so user styles override.
  */
 .wp-block-mars-sol-date {
 	display: inline;
 	font: inherit;
+
 	/* Let block supports and user controls win for padding, color, border, etc. */
 	background: none;
 	border: none;

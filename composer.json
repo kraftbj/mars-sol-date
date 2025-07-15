@@ -1,22 +1,22 @@
 {
-    "name": "kraftbj/mars-sol-date",
-    "description": "Display the post's date in Mars Sol units, starting from Sol 1 as your site's first post, with each sol based on a Martian day.",
-    "type": "project",
-    "require-dev": {
-        "dealerdirect/phpcodesniffer-composer-installer": "*",
-        "automattic/jetpack-codesniffer": "^6.0"
-    },
-    "license": "GPL-2.0-or-later",
-    "authors": [
-        {
-            "name": "Brandon Kraft",
-            "email": "public@brandonkraft.com"
-        }
-    ],
-    "require": {},
-    "config": {
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        }
-    }
+	"name": "kraftbj/mars-sol-date",
+	"description": "Display the post's date in Mars Sol units, starting from Sol 1 as your site's first post, with each sol based on a Martian day.",
+	"type": "project",
+	"require-dev": {
+		"dealerdirect/phpcodesniffer-composer-installer": "*",
+		"automattic/jetpack-codesniffer": "^6.0"
+	},
+	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "Brandon Kraft",
+			"email": "public@brandonkraft.com"
+		}
+	],
+	"require": {},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
 }

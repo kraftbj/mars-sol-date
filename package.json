@@ -16,5 +16,9 @@
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^30.19.0"
+	},
+	"dependencies": {
+		"terser-webpack-plugin": "^5.3.14",
+		"webpack": "^5.100.2"
 	}
 }
