@@ -2,3 +2,5 @@ build/
 node_modules
 mars-sol-date.zip
 /vendor/
+package-lock.json
+composer.lock

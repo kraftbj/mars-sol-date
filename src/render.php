@@ -13,6 +13,10 @@
  * @package kraftbj/mars-sol-date
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 // These are passed by render_callback but PHPCS doesn't know that.
 $attributes = $attributes ?? array();
 $content    = $content ?? '';

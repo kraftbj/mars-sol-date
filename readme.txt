@@ -22,6 +22,8 @@ How it works:
 
 No configuration required — just insert the block wherever you wish to show the sol date!
 
+To report bugs, offer improvements, or review the unprocessed JS/CSS, visit https://github.com/kraftbj/mars-sol-date .
+
 == Installation ==
 
 1. Upload the plugin files to the `/wp-content/plugins/mars-sol-date` directory, or install the plugin through the WordPress plugins screen directly.
