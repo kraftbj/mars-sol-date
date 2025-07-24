@@ -88,7 +88,6 @@ export default function Edit( { attributes, setAttributes, context } ) {
 	} else if ( numberFormat === 'number' ) {
 		label = solNumber > 0 ? solNumber : '';
 	}
-	label = __( label, 'mars-sol-date' );
 
 	let display = label;
 	if ( linkTo === 'post' && post && post.link ) {
