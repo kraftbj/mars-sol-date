@@ -25,7 +25,7 @@ export default function Edit( { attributes, setAttributes, context } ) {
 		numberFormat = 'label-number',
 		align,
 	} = attributes;
-	
+
 	const solLabel = __( 'Sol', 'mars-sol-date' );
 	const postId = context.postId;
 	const postType = context.postType;
