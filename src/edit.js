@@ -22,10 +22,11 @@ export default function Edit( { attributes, setAttributes, context } ) {
 		showPrefix = true,
 		linkTo = 'none',
 		customField = '',
-		solLabel = 'Sol',
 		numberFormat = 'label-number',
 		align,
 	} = attributes;
+	
+	const solLabel = __( 'Sol', 'mars-sol-date' );
 	const postId = context.postId;
 	const postType = context.postType;
 	const post = useSelect(
@@ -153,13 +154,6 @@ export default function Edit( { attributes, setAttributes, context } ) {
 						checked={ showPrefix }
 						onChange={ () =>
 							setAttributes( { showPrefix: ! showPrefix } )
-						}
-					/>
-					<TextControl
-						label={ __( 'Sol Label', 'mars-sol-date' ) }
-						value={ solLabel }
-						onChange={ ( value ) =>
-							setAttributes( { solLabel: value } )
 						}
 					/>
 					<SelectControl
