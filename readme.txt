@@ -3,7 +3,7 @@ Contributors:      kraftbj
 Tags:              block
 Stable tag:        0.1.0
 License:           GPL-2.0-or-later
-Tested up to:      6.9
+Tested up to:      7.0
 Requires at least: 5.0
 Requires PHP:      7.2
 
